@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  pundit.knowledgebase.webcore:
+    image: pundit.knowledgebase.webcore
+    build:
+      context: .
+      dockerfile: src/Pundit.KnowledgeBase.WebCore/Dockerfile
