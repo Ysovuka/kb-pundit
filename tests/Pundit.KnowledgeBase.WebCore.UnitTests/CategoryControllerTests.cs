@@ -9,6 +9,9 @@ using Pundit.KnowledgeBase.WebCore.ViewModels;
 using System;
 using System.Threading.Tasks;
 
+/// <summary>
+/// Unit Tests using http://nsubstitute.github.io/
+/// </summary>
 namespace Pundit.KnowledgeBase.WebCore.UnitTests
 {
     [TestClass]
