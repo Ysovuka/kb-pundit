@@ -33,6 +33,11 @@ namespace Pundit.KnowledgeBase.WebCore.Service
             return await OnCreateAsync(viewModel);
         }
 
+        public async Task<IEnumerable<CategoryViewModel>> ReadAllAsync()
+        {
+            return await OnReadAllAsync();
+        }
+
         public async Task<CategoryViewModel> ReadAsync(long categoryId)
         {
             return await OnReadAsync(categoryId);
@@ -53,6 +58,15 @@ namespace Pundit.KnowledgeBase.WebCore.Service
             var category = _categoryFactory.CreateDataModel(viewModel);
 
             return await _categoryBusinessLayer.CreateAsync(category);
+        }
+
+        protected virtual async Task<IEnumerable<CategoryViewModel>> OnReadAllAsync()
+        {
+            var results = await _categoryBusinessLayer.ReadAllAsync();
+
+            var viewModels = _categoryFactory.CreateViewModels(results);
+
+            return viewModels;
         }
 
         protected virtual async Task<CategoryViewModel> OnReadAsync(long categoryId)

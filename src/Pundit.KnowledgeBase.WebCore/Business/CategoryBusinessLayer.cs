@@ -35,6 +35,11 @@ namespace Pundit.KnowledgeBase.WebCore.Business
             return await OnCreateAsync(category);
         }
 
+        public async Task<IEnumerable<Category>> ReadAllAsync()
+        {
+            return await OnReadAllAsync();
+        }
+
         public async Task<Category> ReadAsync(long categoryId)
         {
             return await OnReadAsync(categoryId);
@@ -52,7 +57,6 @@ namespace Pundit.KnowledgeBase.WebCore.Business
 
         protected virtual async Task<long> OnCreateAsync(Category category)
         {
-            Guard.Assert(() => DbContextOptions == null, new ArgumentNullException("Database Context Options", "DbContextOptions cannot be null."));
             Guard.Assert(() => category == null, new ArgumentNullException("Category", "Category cannot be null."));
 
             using (var context = CreateContext())
@@ -64,11 +68,19 @@ namespace Pundit.KnowledgeBase.WebCore.Business
                 return category.Id;
             }
         }
+
+        protected virtual async Task<IEnumerable<Category>> OnReadAllAsync()
+        {
+            using (var context = CreateContext())
+            {
+                var results = await context.Set<Category>().ToListAsync();
+
+                return results;
+            }
+        }
         
         protected virtual async Task<Category> OnReadAsync(long categoryId)
         {
-            Guard.Assert(() => DbContextOptions == null, new ArgumentNullException("Database Context Options", "DbContextOptions cannot be null."));
-
             using (var context = CreateContext())
             {
                 Category dbCategory = await context.Set<Category>().FirstOrDefaultAsync(c => c.Id == categoryId);
@@ -81,7 +93,6 @@ namespace Pundit.KnowledgeBase.WebCore.Business
 
         protected virtual async Task<Category> OnUpdateAsync(Category category)
         {
-            Guard.Assert(() => DbContextOptions == null, new ArgumentNullException("Database Context Options", "DbContextOptions cannot be null."));
             Guard.Assert(() => category == null, new ArgumentNullException("Category", "Category cannot be null."));
 
             using (var context = CreateContext())
@@ -96,8 +107,6 @@ namespace Pundit.KnowledgeBase.WebCore.Business
 
         protected virtual async Task<Category> OnDeleteAsync(long categoryId)
         {
-            Guard.Assert(() => DbContextOptions == null, new ArgumentNullException("Database Context Options", "DbContextOptions cannot be null."));
-
             using (var context = CreateContext())
             {
                 Category dbCategory = await context.Set<Category>().FirstOrDefaultAsync(c => c.Id == categoryId);
@@ -114,6 +123,8 @@ namespace Pundit.KnowledgeBase.WebCore.Business
 
         private KnowledgeBaseContext CreateContext()
         {
+            Guard.Assert(() => DbContextOptions == null, new ArgumentNullException("Database Context Options", "DbContextOptions cannot be null."));
+
             return new KnowledgeBaseContext(_options);
         }
     }

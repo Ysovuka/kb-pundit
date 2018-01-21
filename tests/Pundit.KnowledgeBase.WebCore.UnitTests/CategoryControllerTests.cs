@@ -4,6 +4,7 @@ using Pundit.KnowledgeBase.WebCore.Controllers;
 using Pundit.KnowledgeBase.WebCore.Service;
 using Pundit.KnowledgeBase.WebCore.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 /// <summary>
@@ -51,6 +52,19 @@ namespace Pundit.KnowledgeBase.WebCore.UnitTests
             
             await controller.Received().ReadAsync(categoryId);
             Assert.IsNotNull(await controller.ReadAsync(categoryId));
+        }
+
+        [TestMethod]
+        public async Task Read_Categories_CallReceived()
+        {
+            var controller = Substitute.For<CategoryController>();
+            controller.CategoryService = Substitute.For<ICategoryService>();
+
+            await controller.ReadAllAsync();
+            controller.ReadAllAsync().Returns(new List<CategoryViewModel>());
+
+            await controller.Received().ReadAllAsync();
+            Assert.IsNotNull(await controller.ReadAllAsync());
         }
 
         [TestMethod]

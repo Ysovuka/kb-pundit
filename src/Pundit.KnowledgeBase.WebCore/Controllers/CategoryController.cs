@@ -31,6 +31,13 @@ namespace Pundit.KnowledgeBase.WebCore.Controllers
         }
 
         [HttpGet]
+        public virtual async Task<IEnumerable<CategoryViewModel>> ReadAllAsync()
+        {
+            Guard.Assert(() => CategoryService == null, new ArgumentNullException("Category Service", "CategoryService cannot be null."));
+            return await CategoryService.ReadAllAsync();
+        }
+
+        [HttpGet]
         public virtual async Task<CategoryViewModel> ReadAsync(long categoryId)
         {
             Guard.Assert(() => CategoryService == null, new ArgumentNullException("Category Service", "CategoryService cannot be null."));

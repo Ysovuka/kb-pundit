@@ -14,5 +14,7 @@ namespace Pundit.KnowledgeBase.WebCore.Business
         Category CreateDataModel(CategoryViewModel viewModel);
 
         CategoryViewModel CreateViewModel(Category category);
+
+        IEnumerable<CategoryViewModel> CreateViewModels(IEnumerable<Category> categories);
     }
 }

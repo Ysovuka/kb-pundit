@@ -9,6 +9,7 @@ namespace Pundit.KnowledgeBase.WebCore.Business
     public interface ICategoryBusinessLayer
     {
         Task<long> CreateAsync(Category category);
+        Task<IEnumerable<Category>> ReadAllAsync();
         Task<Category> ReadAsync(long categoryId);
         Task<Category> UpdateAsync(Category category);
         Task<Category> DeleteAsync(long categoryId);
