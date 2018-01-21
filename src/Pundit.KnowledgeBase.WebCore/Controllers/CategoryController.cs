@@ -18,19 +18,20 @@ namespace Pundit.KnowledgeBase.WebCore.Controllers
         public CategoryController() { }
         public CategoryController(ICategoryService categoryService)
         {
-            Guard.Assert(() => categoryService == null, new ArgumentNullException("CategoryService", "CategoryService cannot be null."));
+            Guard.Assert(() => categoryService == null, new ArgumentNullException("Category Service", "CategoryService cannot be null."));
 
             _categoryService = categoryService;
         }
 
         [HttpPost]
-        public async Task<long> CreateAsync(CategoryViewModel viewModel)
+        public virtual async Task<long> CreateAsync(CategoryViewModel viewModel)
         {
+            Guard.Assert(() => CategoryService == null, new ArgumentNullException("Category Service", "CategoryService cannot be null."));
             return await _categoryService.CreateAsync(viewModel);
         }
 
         [HttpGet]
-        public async Task<CategoryViewModel> ReadAsync(long categoryId)
+        public virtual async Task<CategoryViewModel> ReadAsync(long categoryId)
         {
             return await _categoryService.ReadAsync(categoryId);
         }

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSubstitute;
 using Pundit.KnowledgeBase.WebCore.Business;
 using Pundit.KnowledgeBase.WebCore.Controllers;
 using Pundit.KnowledgeBase.WebCore.Data;
@@ -14,62 +15,47 @@ namespace Pundit.KnowledgeBase.WebCore.UnitTests
     public class CategoryControllerTests
     {
         [TestMethod]
-        public async Task Create_NewCategory_ReturnsId()
+        [DataRow(1)]
+        [DataRow(2)]
+        public async Task Create_NewCategory_ReturnsId(long categoryId)
         {
-            var controller = MakeCategoryController("Create_NewCategory_ReturnsId");
+            var controller = Substitute.For<CategoryController>();
+            controller.CategoryService = Substitute.For<ICategoryService>();
+
             var category = MakeInstance<CategoryViewModel>();
+            category.Id = categoryId;
             category.Name = "Test Category";
 
-            long resultId = await controller.CreateAsync(category);
 
-            Assert.IsTrue(resultId > 0);
+            await controller.CreateAsync(category);
+            controller.CreateAsync(category).Returns(categoryId);
+            
+
+            await controller.Received().CreateAsync(category);
+            Assert.AreEqual(categoryId, await controller.CreateAsync(category));
         }
 
         [TestMethod]
-        public async Task Read_Category_NotNull()
+        [DataRow(1)]
+        [DataRow(2)]
+        public async Task Read_Category_NotNull(long categoryId)
         {
-            var controller = MakeCategoryController("Read_Category_NotNull");
-            long categoryId = 1;
+            var controller = Substitute.For<CategoryController>();
+            controller.CategoryService = Substitute.For<ICategoryService>();
 
-            CategoryViewModel resultCategory = await controller.ReadAsync(categoryId);
-
-            Assert.IsTrue(resultCategory != null);
-        }
-
-        private CategoryController MakeCategoryController(string databaseName)
-        {
-            var dbContextOptions = new DbContextOptionsBuilder<KnowledgeBaseContext>()
-                .UseInMemoryDatabase(databaseName);
-            ICategoryBusinessLayer categoryBusinessLayer = new AlwaysNonNullCategoryBusinessLayer(dbContextOptions.Options);
-
-            ICategoryFactory categoryFactory = new CategoryFactory();
-
-            ICategoryService categoryService = new CategoryService(categoryBusinessLayer, categoryFactory);
-
-            return new CategoryController(categoryService);
+            await controller.ReadAsync(categoryId);
+            controller.ReadAsync(categoryId).Returns(new CategoryViewModel
+            {
+                Id = categoryId,
+            });
+            
+            await controller.Received().ReadAsync(categoryId);
+            Assert.IsNotNull(await controller.ReadAsync(categoryId));
         }
 
         private T MakeInstance<T>()
         {
             return Activator.CreateInstance<T>();
-        }
-    }
-
-    public class AlwaysNonNullCategoryBusinessLayer : CategoryBusinessLayer
-    {
-        public AlwaysNonNullCategoryBusinessLayer(DbContextOptions<KnowledgeBaseContext> options)
-            : base(options)
-        {
-
-        }
-
-        protected override async Task<Category> OnReadAsync(long categoryId)
-        {
-            return new Category
-            {
-                Id = categoryId,
-                Name = "Non-Null Category"
-            };
         }
     }
 }
