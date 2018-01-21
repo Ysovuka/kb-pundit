@@ -9,5 +9,6 @@ namespace Pundit.KnowledgeBase.WebCore.Business
     public interface ICategoryBusinessLayer
     {
         Task<long> CreateAsync(Category category);
+        Task<Category> ReadAsync(long categoryId);
     }
 }

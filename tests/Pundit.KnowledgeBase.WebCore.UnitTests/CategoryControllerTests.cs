@@ -25,11 +25,22 @@ namespace Pundit.KnowledgeBase.WebCore.UnitTests
             Assert.IsTrue(resultId > 0);
         }
 
+        [TestMethod]
+        public async Task Read_Category_NotNull()
+        {
+            var controller = MakeCategoryController("Read_Category_NotNull");
+            long categoryId = 1;
+
+            CategoryViewModel resultCategory = await controller.ReadAsync(categoryId);
+
+            Assert.IsTrue(resultCategory != null);
+        }
+
         private CategoryController MakeCategoryController(string databaseName)
         {
             var dbContextOptions = new DbContextOptionsBuilder<KnowledgeBaseContext>()
                 .UseInMemoryDatabase(databaseName);
-            ICategoryBusinessLayer categoryBusinessLayer = new CategoryBusinessLayer(dbContextOptions.Options);
+            ICategoryBusinessLayer categoryBusinessLayer = new AlwaysNonNullCategoryBusinessLayer(dbContextOptions.Options);
 
             ICategoryFactory categoryFactory = new CategoryFactory();
 
@@ -41,6 +52,24 @@ namespace Pundit.KnowledgeBase.WebCore.UnitTests
         private T MakeInstance<T>()
         {
             return Activator.CreateInstance<T>();
+        }
+    }
+
+    public class AlwaysNonNullCategoryBusinessLayer : CategoryBusinessLayer
+    {
+        public AlwaysNonNullCategoryBusinessLayer(DbContextOptions<KnowledgeBaseContext> options)
+            : base(options)
+        {
+
+        }
+
+        protected override async Task<Category> OnReadAsync(long categoryId)
+        {
+            return new Category
+            {
+                Id = categoryId,
+                Name = "Non-Null Category"
+            };
         }
     }
 }
