@@ -10,5 +10,7 @@ namespace Pundit.KnowledgeBase.WebCore.Business
     {
         Task<long> CreateAsync(Category category);
         Task<Category> ReadAsync(long categoryId);
+        Task<Category> UpdateAsync(Category category);
+        Task<Category> DeleteAsync(long categoryId);
     }
 }

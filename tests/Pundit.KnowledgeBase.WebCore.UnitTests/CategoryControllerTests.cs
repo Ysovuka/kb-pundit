@@ -1,9 +1,6 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using Pundit.KnowledgeBase.WebCore.Business;
 using Pundit.KnowledgeBase.WebCore.Controllers;
-using Pundit.KnowledgeBase.WebCore.Data;
 using Pundit.KnowledgeBase.WebCore.Service;
 using Pundit.KnowledgeBase.WebCore.ViewModels;
 using System;
@@ -20,7 +17,7 @@ namespace Pundit.KnowledgeBase.WebCore.UnitTests
         [TestMethod]
         [DataRow(1)]
         [DataRow(2)]
-        public async Task Create_NewCategory_ReturnsId(long categoryId)
+        public async Task Create_Category_CallReceived(long categoryId)
         {
             var controller = Substitute.For<CategoryController>();
             controller.CategoryService = Substitute.For<ICategoryService>();
@@ -41,7 +38,7 @@ namespace Pundit.KnowledgeBase.WebCore.UnitTests
         [TestMethod]
         [DataRow(1)]
         [DataRow(2)]
-        public async Task Read_Category_NotNull(long categoryId)
+        public async Task Read_Category_CallReceived(long categoryId)
         {
             var controller = Substitute.For<CategoryController>();
             controller.CategoryService = Substitute.For<ICategoryService>();
@@ -54,6 +51,41 @@ namespace Pundit.KnowledgeBase.WebCore.UnitTests
             
             await controller.Received().ReadAsync(categoryId);
             Assert.IsNotNull(await controller.ReadAsync(categoryId));
+        }
+
+        [TestMethod]
+        public async Task Update_Category_CallReceived()
+        {
+            var controller = Substitute.For<CategoryController>();
+            controller.CategoryService = Substitute.For<ICategoryService>();
+
+            var categoryViewModel = MakeInstance<CategoryViewModel>();
+            categoryViewModel.Id = 1;
+            categoryViewModel.Name = "Updated";
+
+            await controller.UpdateAsync(categoryViewModel);
+            controller.UpdateAsync(categoryViewModel).Returns(categoryViewModel);
+
+            await controller.Received().UpdateAsync(categoryViewModel);
+            Assert.IsNotNull(await controller.UpdateAsync(categoryViewModel));
+        }
+
+        [TestMethod]
+        [DataRow(1)]
+        [DataRow(2)]
+        public async Task Delete_Category_CallReceived(long categoryId)
+        {
+            var controller = Substitute.For<CategoryController>();
+            controller.CategoryService = Substitute.For<ICategoryService>();
+
+            await controller.DeleteAsync(categoryId);
+            controller.DeleteAsync(categoryId).Returns(new CategoryViewModel
+            {
+                Id = categoryId,
+            });
+
+            await controller.Received().DeleteAsync(categoryId);
+            Assert.IsNotNull(await controller.DeleteAsync(categoryId));
         }
 
         private T MakeInstance<T>()

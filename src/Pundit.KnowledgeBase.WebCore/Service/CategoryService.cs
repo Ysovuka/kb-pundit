@@ -8,8 +8,8 @@ using Pundit.KnowledgeBase.WebCore.ViewModels;
 
 namespace Pundit.KnowledgeBase.WebCore.Service
 {
-    public class CategoryService : ICategoryService
-    {  
+    public class CategoryService : ICategoryService, IDisposable
+    {
         private ICategoryBusinessLayer _categoryBusinessLayer;
         private ICategoryFactory _categoryFactory;
 
@@ -23,6 +23,11 @@ namespace Pundit.KnowledgeBase.WebCore.Service
             _categoryFactory = categoryFactory;
         }
 
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+        }
+
         public async Task<long> CreateAsync(CategoryViewModel viewModel)
         {
             return await OnCreateAsync(viewModel);
@@ -31,6 +36,16 @@ namespace Pundit.KnowledgeBase.WebCore.Service
         public async Task<CategoryViewModel> ReadAsync(long categoryId)
         {
             return await OnReadAsync(categoryId);
+        }
+
+        public async Task<CategoryViewModel> UpdateAsync(CategoryViewModel viewModel)
+        {
+            return await OnUpdateAsync(viewModel);
+        }
+
+        public async Task<CategoryViewModel> DeleteAsync(long categoryId)
+        {
+            return await OnDeleteAsync(categoryId);
         }
 
         protected virtual async Task<long> OnCreateAsync(CategoryViewModel viewModel)
@@ -43,6 +58,26 @@ namespace Pundit.KnowledgeBase.WebCore.Service
         protected virtual async Task<CategoryViewModel> OnReadAsync(long categoryId)
         {
             var result = await _categoryBusinessLayer.ReadAsync(categoryId);
+
+            var viewModel = _categoryFactory.CreateViewModel(result);
+
+            return viewModel;
+        }
+
+        protected virtual async Task<CategoryViewModel> OnUpdateAsync(CategoryViewModel viewModel)
+        {
+            var category = _categoryFactory.CreateDataModel(viewModel);
+
+            var result = await _categoryBusinessLayer.UpdateAsync(category);
+
+            var resultViewModel = _categoryFactory.CreateViewModel(result);
+
+            return resultViewModel;
+        }
+
+        protected virtual async Task<CategoryViewModel> OnDeleteAsync(long categoryId)
+        {
+            var result = await _categoryBusinessLayer.DeleteAsync(categoryId);
 
             var viewModel = _categoryFactory.CreateViewModel(result);
 

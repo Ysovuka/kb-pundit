@@ -7,5 +7,7 @@ namespace Pundit.KnowledgeBase.WebCore.Service
     {
         Task<long> CreateAsync(CategoryViewModel viewModel);
         Task<CategoryViewModel> ReadAsync(long categoryId);
+        Task<CategoryViewModel> UpdateAsync(CategoryViewModel viewModel);
+        Task<CategoryViewModel> DeleteAsync(long categoryId);
     }
 }
