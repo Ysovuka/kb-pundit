@@ -23,9 +23,11 @@ namespace Pundit.KnowledgeBase.WebCore.UnitTests
             var controller = Substitute.For<CategoryController>();
             controller.CategoryService = Substitute.For<ICategoryService>();
 
-            var category = MakeInstance<CategoryViewModel>();
-            category.Id = categoryId;
-            category.Name = "Test Category";
+            var category = new CategoryViewModel
+            {
+                Id = categoryId,
+                Name = "Test Category"
+            };
 
 
             await controller.CreateAsync(category);
@@ -73,9 +75,11 @@ namespace Pundit.KnowledgeBase.WebCore.UnitTests
             var controller = Substitute.For<CategoryController>();
             controller.CategoryService = Substitute.For<ICategoryService>();
 
-            var categoryViewModel = MakeInstance<CategoryViewModel>();
-            categoryViewModel.Id = 1;
-            categoryViewModel.Name = "Updated";
+            var categoryViewModel = new CategoryViewModel
+            {
+                Id = 1,
+                Name = "Updated"
+            };
 
             await controller.UpdateAsync(categoryViewModel);
             controller.UpdateAsync(categoryViewModel).Returns(categoryViewModel);
@@ -100,11 +104,6 @@ namespace Pundit.KnowledgeBase.WebCore.UnitTests
 
             await controller.Received().DeleteAsync(categoryId);
             Assert.IsNotNull(await controller.DeleteAsync(categoryId));
-        }
-
-        private T MakeInstance<T>()
-        {
-            return Activator.CreateInstance<T>();
         }
     }
 }
