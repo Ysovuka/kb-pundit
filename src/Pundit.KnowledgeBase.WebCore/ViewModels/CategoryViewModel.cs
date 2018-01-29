@@ -1,4 +1,4 @@
-﻿using Pundit.KnowledgeBase.WebCore.Data;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,16 +9,43 @@ namespace Pundit.KnowledgeBase.WebCore.ViewModels
 {
     public class CategoryViewModel
     {
-        public CategoryViewModel() { }
-        public CategoryViewModel(Category category)
+        private List<CategoryViewModel> _categories = new List<CategoryViewModel>();
+
+        private CategoryViewModel()
         {
-            Id = category.Id;
-            Name = category.Name;
+
+        }
+        
+        public CategoryViewModel(string name, string icon)
+            : this(name, icon, null)
+        {
+            
+        }
+            
+        public CategoryViewModel(string name, string icon, long? parentId)
+        {
+            Name = name;
+            Icon = icon;
+            ParentId = parentId;
         }
 
+        [JsonProperty]
         public long Id { get; set; }
 
+        [JsonProperty]
         [Required]
         public string Name { get; set; }
+
+        [JsonProperty]
+        [Required]
+        public string SefName { get; private set; }
+
+        [JsonProperty]
+        public string Icon { get; set; }
+
+        [JsonProperty]
+        public long? ParentId { get; set; }
+
+        public IEnumerable<CategoryViewModel> Children { get { return _categories; } private set { _categories = value.ToList(); } }
     }
 }

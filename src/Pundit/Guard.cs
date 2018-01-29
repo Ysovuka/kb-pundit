@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
 
-namespace Pundit.KnowledgeBase.WebCore.Debug
+namespace Pundit
 {
     public static class Guard
     {

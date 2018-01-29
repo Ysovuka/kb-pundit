@@ -14,7 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Pundit.Harbinger\Pundit.Harbinger.csproj" />
     <ProjectReference Include="..\..\src\Pundit.KnowledgeBase.WebCore\Pundit.KnowledgeBase.WebCore.csproj" />
+    <ProjectReference Include="..\..\src\Pundit\Pundit.csproj" />
   </ItemGroup>
 
 </Project>

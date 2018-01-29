@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Pundit.KnowledgeBase.WebCore.Data
 {
-    public class KnowledgeBaseContext : DbContext
+    public class DatabaseRepository : DbContext
     {
-        public KnowledgeBaseContext(DbContextOptions<KnowledgeBaseContext> options)
+        public DatabaseRepository(DbContextOptions<DatabaseRepository> options)
             : base(options)
         {
 
