@@ -8,7 +8,8 @@ using System.Linq;
 namespace Pundit.KnowledgeBase.WebCore.Domain.Category
 {
     public class Category : Entity
-    {        
+    {
+        private Category() { }
         public Category(Guid requestId, string name, string icon)
         {
             Name = name;
@@ -17,7 +18,7 @@ namespace Pundit.KnowledgeBase.WebCore.Domain.Category
         }
 
         [NotMapped]
-        public Guid RequestId { get; }
+        public Guid RequestId { get; private set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -33,5 +34,13 @@ namespace Pundit.KnowledgeBase.WebCore.Domain.Category
         private IList<Category> _children = new List<Category>();
         [ForeignKey("ParentId")]
         public virtual IEnumerable<Category> Children { get { return _children; } private set { _children = value.ToList(); } }
+
+        public void Update(Guid requestId, string name, string icon)
+        {
+            RequestId = requestId;
+
+            Name = name;
+            Icon = icon;
+        }
     }
 }
