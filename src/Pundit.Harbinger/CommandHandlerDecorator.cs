@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Pundit.Harbinger
@@ -23,6 +24,6 @@ namespace Pundit.Harbinger
             GC.SuppressFinalize(this);
         }
 
-        public abstract Task ExecuteAsync(TCommand command);
+        public abstract Task ExecuteAsync(TCommand command, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

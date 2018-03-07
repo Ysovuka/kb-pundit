@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Linq;
 
-namespace Pundit.Interlude
+namespace Microsoft.AspNetCore.Mvc
 {
     public sealed class ApiError
     {

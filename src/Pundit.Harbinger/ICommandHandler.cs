@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Pundit.Harbinger
@@ -7,6 +8,6 @@ namespace Pundit.Harbinger
         IDisposable
         where TCommand : ICommand
     {
-        Task ExecuteAsync(TCommand command);
+        Task ExecuteAsync(TCommand command, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

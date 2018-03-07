@@ -17,7 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Pundit.Circuit\Pundit.Circuit.csproj" />
     <ProjectReference Include="..\Pundit.Harbinger\Pundit.Harbinger.csproj" />
+    <ProjectReference Include="..\Pundit.Interlude\Pundit.Interlude.csproj" />
     <ProjectReference Include="..\Pundit\Pundit.csproj" />
   </ItemGroup>
 

@@ -10,8 +10,9 @@ namespace Pundit.KnowledgeBase.WebCore.Domain.Category
     public class Category : Entity
     {
         private Category() { }
-        public Category(Guid requestId, string name, string icon)
+        public Category(Guid requestId, long id, string name, string icon)
         {
+            Id = id;
             Name = name;
             Icon = icon;
             RequestId = requestId;

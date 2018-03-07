@@ -18,5 +18,10 @@ namespace Pundit.KnowledgeBase.WebCore.Domain.Category
         public long Id { get; }
         public string Name { get; }
         public string Icon { get; }
+
+        public UpdateCategoryCommand GetCommand()
+        {
+            return new UpdateCategoryCommand(RequestId, Id, Name, Icon);
+        }
     }
 }

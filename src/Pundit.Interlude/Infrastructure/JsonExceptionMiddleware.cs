@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -8,7 +9,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Pundit.Interlude.Infrastructure
+namespace Microsoft.Extensions.DependencyInjection
 {
     public sealed class JsonExceptionMiddleware
     {

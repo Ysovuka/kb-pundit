@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace Pundit.Harbinger
 {
@@ -55,12 +53,9 @@ namespace Pundit.Harbinger
         {
             if (_actions != null)
             {
-                foreach( var action in _actions)
+                foreach( var action in _actions.Where(p => p.Value is Action<T>))
                 {
-                    if (action.Value is Action<T>)
-                    {
-                        ((Action<T>)action.Value)(args);
-                    }
+                    ((Action<T>)action.Value)(args);
                 }
             }
         }

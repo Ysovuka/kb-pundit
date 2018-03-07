@@ -1,21 +1,24 @@
-﻿using Pundit.Harbinger;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
+using Pundit.Harbinger;
+using Pundit.Interlude;
 
 namespace Pundit.KnowledgeBase.WebCore.Domain.Category
 {
     public class ReadAllCategoriesQuery : IQuery<ReadAllCategoriesQueryResult>
     {
-        public ReadAllCategoriesQuery(int startIndex = 0, int length = 50)
-        {
-            StartIndex = startIndex;
-            Length = length;
-        }
+        public ReadAllCategoriesQuery() { }
 
-        public int StartIndex { get; }
-        public int Length { get; }
+        [FromQuery]
+        public PagingOptions PagingOptions { get; private set; } = new PagingOptions();
+
+        [FromQuery]
+        public string Include { get; private set; }
+
+        [FromQuery]
+        public string Filter { get; private set; }
+
+        [FromQuery]
+        public string Sort { get; private set; }
 
     }
 }

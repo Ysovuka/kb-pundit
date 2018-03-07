@@ -17,9 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pundit.Harbinger", "src\Pun
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pundit", "src\Pundit\Pundit.csproj", "{7D349449-2B52-4443-A0AB-E27B2208667B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pundit.Linq", "src\Pundit.Linq\Pundit.Linq.csproj", "{90F1084C-96D8-44B9-8F30-5D9978721D55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pundit.Linq", "src\Pundit.Linq\Pundit.Linq.csproj", "{90F1084C-96D8-44B9-8F30-5D9978721D55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pundit.Interlude", "src\Pundit.Interlude\Pundit.Interlude.csproj", "{5B223849-7B76-4EFA-9CB6-1D550FF3FC3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pundit.Interlude", "src\Pundit.Interlude\Pundit.Interlude.csproj", "{5B223849-7B76-4EFA-9CB6-1D550FF3FC3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pundit.Circuit", "src\Pundit.Circuit\Pundit.Circuit.csproj", "{F1432AB7-D961-4C9F-986A-C9F6CE9A5C0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{5B223849-7B76-4EFA-9CB6-1D550FF3FC3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B223849-7B76-4EFA-9CB6-1D550FF3FC3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B223849-7B76-4EFA-9CB6-1D550FF3FC3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1432AB7-D961-4C9F-986A-C9F6CE9A5C0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1432AB7-D961-4C9F-986A-C9F6CE9A5C0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1432AB7-D961-4C9F-986A-C9F6CE9A5C0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1432AB7-D961-4C9F-986A-C9F6CE9A5C0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +72,7 @@ Global
 		{7D349449-2B52-4443-A0AB-E27B2208667B} = {18278CFC-B0A5-44B5-9B8D-D35164FCCAD8}
 		{90F1084C-96D8-44B9-8F30-5D9978721D55} = {18278CFC-B0A5-44B5-9B8D-D35164FCCAD8}
 		{5B223849-7B76-4EFA-9CB6-1D550FF3FC3D} = {18278CFC-B0A5-44B5-9B8D-D35164FCCAD8}
+		{F1432AB7-D961-4C9F-986A-C9F6CE9A5C0F} = {18278CFC-B0A5-44B5-9B8D-D35164FCCAD8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {30066191-E8A4-414E-9FDA-ACD1AE1A18B3}

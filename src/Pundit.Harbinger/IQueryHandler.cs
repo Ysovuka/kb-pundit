@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Pundit.Harbinger
@@ -7,6 +8,6 @@ namespace Pundit.Harbinger
         IDisposable
         where TQuery : IQuery<TResult>
     {
-        Task<TResult> ExecuteAsync(TQuery query);
+        Task<TResult> ExecuteAsync(TQuery query, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

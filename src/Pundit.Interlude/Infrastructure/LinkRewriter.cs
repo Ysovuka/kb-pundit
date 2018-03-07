@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Pundit.Interlude;
 
-namespace Pundit.Interlude.Infrastructure
+namespace Microsoft.AspNetCore.Mvc
 {
     public sealed class LinkRewriter
     {

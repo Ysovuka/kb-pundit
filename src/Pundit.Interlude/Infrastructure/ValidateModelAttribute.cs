@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-
-namespace Pundit.Interlude.Infrastructure
+﻿namespace Microsoft.AspNetCore.Mvc.Filters
 {
     public sealed class ValidateModelAttribute : ActionFilterAttribute
     {
